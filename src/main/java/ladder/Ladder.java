@@ -31,7 +31,7 @@ public class Ladder {
         }
     }
 
-    private void setEachHeight(int height){
+    private void setEachHeight(int height) {
         ArrayList<Integer> drawPositions = getDrawPositions();
         boolean[] points = new boolean[lineNum];
 
@@ -42,32 +42,32 @@ public class Ladder {
         ladder[height] = points;
     }
 
-    private ArrayList<Integer> getDrawPositions(){
-        ArrayList<Integer> drawPoints = new ArrayList<>();
+    private ArrayList<Integer> getDrawPositions() {
+        ArrayList<Integer> drawPositions = new ArrayList<>();
         for (int pos = 0; pos < lineNum; pos++) {
-            addDrawPositions(drawPoints, pos);
+            addDrawPositions(drawPositions, pos);
         }
-        return drawPoints;
+        return drawPositions;
     }
 
-    private void addDrawPositions(ArrayList<Integer> drawPoints, int pos){
+    private void addDrawPositions(ArrayList<Integer> drawPositions, int pos) {
         if(LadderUtils.isEvenNumPos(pos)){
-            drawPoints.add(pos);
+            drawPositions.add(pos);
             return;
         }
 
-        if(LadderUtils.choiceDraw() && !isExistAdjoinDrawPos(drawPoints, pos)){
-            drawPoints.add(pos);
+        if(LadderUtils.choiceDraw() && !isExistAdjoinDrawPos(drawPositions, pos)) {
+            drawPositions.add(pos);
         }
     }
 
 
-    private boolean isExistAdjoinDrawPos(ArrayList<Integer> drawPoints, int pos){
-        return drawPoints.contains(pos-2);
+    private boolean isExistAdjoinDrawPos(ArrayList<Integer> drawPositions, int pos) {
+        return drawPositions.contains(pos-2);
     }
 
 
-    public String convertToViewMode(){
+    public String convertToViewMode() {
         StringBuilder builder = new StringBuilder();
         for (boolean[] points : ladder) {
             builder.append(convertEachHeight(points)).append("\n");
@@ -75,7 +75,7 @@ public class Ladder {
         return builder.toString();
     }
 
-    private String convertEachHeight(boolean[] points){
+    private String convertEachHeight(boolean[] points) {
         StringBuilder builder = new StringBuilder();
         for (int pos = 0; pos < lineNum; pos++) {
             builder.append(convertPoint(pos, points[pos]));
@@ -83,8 +83,8 @@ public class Ladder {
         return builder.toString();
     }
 
-    private char convertPoint(int pos, boolean point){
-        if(LadderUtils.isEvenNumPos(pos)){
+    private char convertPoint(int pos, boolean point) {
+        if (LadderUtils.isEvenNumPos(pos)) {
             return '|';
         }
 
