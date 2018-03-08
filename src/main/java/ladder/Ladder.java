@@ -17,15 +17,15 @@ public class Ladder {
         setLadder();
     }
 
-    private int calcLineNum(int playerNum){
-        return playerNum*2-1;
+    private int calcLineNum(int playerNum) {
+        return playerNum * 2 - 1;
     }
 
-    private void initLadder(){
+    private void initLadder() {
         ladder = new boolean[heightLimit][lineNum];
     }
 
-    private void setLadder(){
+    private void setLadder() {
         for (int height = 0; height < heightLimit; height++) {
             setEachHeight(height);
         }
@@ -35,7 +35,7 @@ public class Ladder {
         ArrayList<Integer> drawPositions = getDrawPositions();
         boolean[] points = new boolean[lineNum];
 
-        for (int pos = 0; pos< lineNum; pos++) {
+        for (int pos = 0; pos < lineNum; pos++) {
             points[pos] = drawPositions.contains(pos);
         }
 
@@ -51,19 +51,19 @@ public class Ladder {
     }
 
     private void addDrawPositions(ArrayList<Integer> drawPositions, int pos) {
-        if(LadderUtils.isEvenNumPos(pos)){
+        if (LadderUtils.isEvenNumPos(pos)) {
             drawPositions.add(pos);
             return;
         }
 
-        if(LadderUtils.choiceDraw() && !isExistAdjoinDrawPos(drawPositions, pos)) {
+        if (LadderUtils.choiceDraw() && !isExistAdjoinDrawPos(drawPositions, pos)) {
             drawPositions.add(pos);
         }
     }
 
 
     private boolean isExistAdjoinDrawPos(ArrayList<Integer> drawPositions, int pos) {
-        return drawPositions.contains(pos-2);
+        return drawPositions.contains(pos - 2);
     }
 
 
@@ -88,7 +88,7 @@ public class Ladder {
             return '|';
         }
 
-        if(point){
+        if (point) {
             return '-';
         }
         return ' ';

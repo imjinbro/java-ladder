@@ -7,12 +7,12 @@ public class LadderConsole {
         LadderConsole.start();
     }
 
-    public static void start(){
+    public static void start() {
         Ladder ladder = new Ladder(getPlayerNum(), getMaxHeight());
         Viewer.viewLadder(ladder);
     }
 
-    private static int getPlayerNum(){
+    private static int getPlayerNum() {
         Viewer.viewMessage("참여할 사람은 몇 명 인가요 (1명 이상, 잘못된 입력 시 종료)");
         int playerNum = Input.getInt();
         if (isInvalidTypeNum(playerNum)) {
@@ -23,7 +23,7 @@ public class LadderConsole {
         return playerNum;
     }
 
-    private static int getMaxHeight(){
+    private static int getMaxHeight() {
         int maxHeight = -1;
         while (isInvalidTypeNum(maxHeight)) {
             Viewer.viewMessage("최대 사다리 높이는 몇 개인가요 (1이상, 잘못된 입력 시 재입력)");
@@ -33,7 +33,7 @@ public class LadderConsole {
         return maxHeight;
     }
 
-    private static boolean isInvalidTypeNum(int typeNum){
+    private static boolean isInvalidTypeNum(int typeNum) {
         return typeNum < 1;
     }
 }
