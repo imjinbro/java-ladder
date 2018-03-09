@@ -1,6 +1,7 @@
 package ladder;
 
-import ladder.util.ViewMdeFormat;
+import ladder.util.LadderBuilder;
+import ladder.util.LadderUtils;
 
 import java.util.ArrayList;
 
@@ -10,11 +11,7 @@ public class Ladder {
 
     public Ladder(String[] names, int height) {
         this.names = names;
-        setLadder(height, calcLineNum(names.length));
-    }
-
-    private int calcLineNum(int playerNum) {
-        return playerNum * 2 - 1;
+        setLadder(height, LadderUtils.calcLineNum(names.length));
     }
 
     private void setLadder(int height, int lineNum) {
@@ -23,15 +20,7 @@ public class Ladder {
         }
     }
 
-    public String convertForViewMode() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(ViewMdeFormat.formatNames(names));
-        builder.append("\n");
-
-        for (Line line : ladder) {
-            builder.append(line.convertForViewMode());
-            builder.append("\n");
-        }
-        return builder.toString();
+    public String buildLadder() {
+        return LadderBuilder.build(ladder, names);
     }
 }

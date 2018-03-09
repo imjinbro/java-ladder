@@ -2,7 +2,7 @@ package ladder.util;
 
 import java.util.Arrays;
 
-public class ViewMdeFormat {
+public class LadderFormat {
     private static final int MAX_LENGTH = 5;
 
     public static String formatNames(String[] names) {
@@ -10,6 +10,7 @@ public class ViewMdeFormat {
         for (String name : names) {
             builder.append(fillNameToArea(name.toCharArray()));
         }
+        builder.append("\n");
         return builder.toString();
     }
 

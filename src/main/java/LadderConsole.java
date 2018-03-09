@@ -15,10 +15,10 @@ public class LadderConsole {
     private static String[] getPlayersName() {
         Viewer.viewMessage("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
 
-        String[] names = devidePlayersName(Input.getPlayerNames());
+        String[] names = dividePlayersName(Input.getPlayerNames());
         while (isInvalidNames(names)) {
             Viewer.viewMessage("플레이어 이름을 잘못 입력하였습니다(2명 이상 입력, 1명 당 이름 5자 이하)\n참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
-            names = devidePlayersName(Input.getPlayerNames());
+            names = dividePlayersName(Input.getPlayerNames());
         }
 
         return names;
@@ -53,12 +53,6 @@ public class LadderConsole {
         return name.length() <= maxLength;
     }
 
-
-    private static boolean isInvalidLength(String name) {
-        int maxNameLength = 5;
-        return name.length() > maxNameLength;
-    }
-
     private static int getMaxHeight() {
         int maxHeight = -1;
         while (isInvalidHeight(maxHeight)) {
@@ -73,8 +67,13 @@ public class LadderConsole {
         return height < 1;
     }
 
-    private static String[] devidePlayersName(String playersName) {
+    private static String[] dividePlayersName(String playersName) {
+        String removedPlayersName = removeEmptySpace(playersName);
         String delimiter = ",";
-        return playersName.split(delimiter);
+        return removedPlayersName.split(delimiter);
+    }
+
+    private static String removeEmptySpace(String playersName) {
+        return playersName.replace(" ", "");
     }
 }

@@ -16,4 +16,8 @@ public class LadderUtils {
     private static int getRandomIndex(int bound) {
         return new Random().nextInt(bound);
     }
+
+    public static int calcLineNum(int playerNum) {
+        return playerNum * 2 - 1;
+    }
 }

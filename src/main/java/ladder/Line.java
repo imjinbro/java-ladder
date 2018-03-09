@@ -1,11 +1,9 @@
 package ladder;
 
 import ladder.util.LadderUtils;
-import ladder.util.ViewMdeFormat;
-
 import java.util.ArrayList;
 
-class Line {
+public class Line {
     private ArrayList<Boolean> points = new ArrayList<>();
 
     Line(int lineNum) {
@@ -43,26 +41,7 @@ class Line {
         return drawPositions.contains(pos - 2);
     }
 
-    public String convertForViewMode() {
-        StringBuilder builder = new StringBuilder();
-        for (int pos = 0; pos < points.size(); pos++) {
-            builder.append(convertPoint(pos, points.get(pos)));
-        }
-        return ViewMdeFormat.formatLine(builder.toString());
-    }
-
-    private String convertPoint(int pos, boolean point) {
-        if (LadderUtils.isEvenNumPos(pos)) {
-            return "|";
-        }
-
-        if (canDraw(point)) {
-            return "-----";
-        }
-        return "     ";
-    }
-
-    private boolean canDraw(boolean point) {
-        return point;
+    public boolean isDrawPosition(int position){
+        return points.get(position);
     }
 }

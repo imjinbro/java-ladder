@@ -8,6 +8,6 @@ public class Viewer {
     }
 
     public static void viewLadder(Ladder ladder) {
-        System.out.println(ladder.convertForViewMode());
+        System.out.println(ladder.buildLadder());
     }
 }
