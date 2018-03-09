@@ -33,7 +33,7 @@ class Line {
             return;
         }
 
-        if (LadderUtils.choiceDraw() && !isExistAdjoinDrawPos(drawPositions, pos)) {
+        if (LadderUtils.selectDrawOrNotDraw() && !isExistAdjoinDrawPos(drawPositions, pos)) {
             drawPositions.add(pos);
         }
     }
@@ -55,9 +55,13 @@ class Line {
             return '|';
         }
 
-        if (point) {
+        if (canDraw(point)) {
             return '-';
         }
         return ' ';
+    }
+
+    private boolean canDraw(boolean point) {
+        return point;
     }
 }

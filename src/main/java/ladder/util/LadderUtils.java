@@ -8,9 +8,12 @@ public class LadderUtils {
         return pos % 2 == 0;
     }
 
-    public static boolean choiceDraw() {
+    public static boolean selectDrawOrNotDraw() {
         boolean[] resCandidate = {true, false};
-        return resCandidate[new Random().nextInt(resCandidate.length)];
+        return resCandidate[getRandomIndex(resCandidate.length)];
     }
 
+    private static int getRandomIndex(int bound) {
+        return new Random().nextInt(bound);
+    }
 }

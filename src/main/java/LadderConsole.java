@@ -14,7 +14,8 @@ public class LadderConsole {
 
     private static int getPlayerNum() {
         Viewer.viewMessage("참여할 사람은 몇 명 인가요 (1명 이상, 잘못된 입력 시 종료)");
-        int playerNum = Input.getInt();
+
+        int playerNum = Input.getNumber();
         if (isInvalidTypeNum(playerNum)) {
             Viewer.viewMessage("잘못된 입력으로 프로그램을 종료합니다");
             System.exit(-1);
@@ -27,7 +28,7 @@ public class LadderConsole {
         int maxHeight = -1;
         while (isInvalidTypeNum(maxHeight)) {
             Viewer.viewMessage("최대 사다리 높이는 몇 개인가요 (1이상, 잘못된 입력 시 재입력)");
-            maxHeight = Input.getInt();
+            maxHeight = Input.getNumber();
         }
 
         return maxHeight;

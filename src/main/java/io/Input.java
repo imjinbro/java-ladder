@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Input {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static int getInt() {
+    public static int getNumber() {
         return scanner.nextInt();
     }
 }
