@@ -8,4 +8,8 @@ public class Input {
     public static int getNumber() {
         return scanner.nextInt();
     }
+
+    public static String getPlayerNames() {
+        return scanner.nextLine();
+    }
 }

@@ -1,6 +1,7 @@
 package ladder;
 
 import ladder.util.LadderUtils;
+import ladder.util.ViewMdeFormat;
 
 import java.util.ArrayList;
 
@@ -47,18 +48,18 @@ class Line {
         for (int pos = 0; pos < points.size(); pos++) {
             builder.append(convertPoint(pos, points.get(pos)));
         }
-        return builder.toString();
+        return ViewMdeFormat.formatLine(builder.toString());
     }
 
-    private char convertPoint(int pos, boolean point) {
+    private String convertPoint(int pos, boolean point) {
         if (LadderUtils.isEvenNumPos(pos)) {
-            return '|';
+            return "|";
         }
 
         if (canDraw(point)) {
-            return '-';
+            return "-----";
         }
-        return ' ';
+        return "     ";
     }
 
     private boolean canDraw(boolean point) {

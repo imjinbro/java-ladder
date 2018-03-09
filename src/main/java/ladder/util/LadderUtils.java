@@ -16,4 +16,9 @@ public class LadderUtils {
     private static int getRandomIndex(int bound) {
         return new Random().nextInt(bound);
     }
+
+    public static String[] devidePlayersName(String playersName) {
+        String delimiter = ",";
+        return playersName.split(delimiter);
+    }
 }
