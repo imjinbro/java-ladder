@@ -1,6 +1,6 @@
+import domain.Ladder;
 import view.Input;
 import view.Viewer;
-import domain.ladder.Ladder;
 
 public class Main {
     private static final int MIN_PLAYER_NUM = 2;

@@ -1,7 +1,4 @@
-package domain.ladder.util;
-
-import domain.ladder.Line;
-import domain.ladder.Names;
+package domain;
 
 import java.util.ArrayList;
 

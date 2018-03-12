@@ -1,4 +1,4 @@
-package domain.ladder.util;
+package domain;
 
 import java.util.Arrays;
 

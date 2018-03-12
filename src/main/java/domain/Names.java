@@ -1,4 +1,4 @@
-package domain.ladder;
+package domain;
 
 public class Names {
     private String[] names;

@@ -1,7 +1,5 @@
-package domain.ladder;
+package domain;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import domain.ladder.util.LineBuilder;
 import org.junit.Before;
 import org.junit.Test;
 

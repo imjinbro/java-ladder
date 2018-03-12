@@ -1,8 +1,4 @@
-package domain.ladder;
-
-import domain.ladder.util.LadderBuilder;
-import domain.ladder.util.LadderUtils;
-import domain.ladder.util.LineBuilder;
+package domain;
 
 import java.util.ArrayList;
 

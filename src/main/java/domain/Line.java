@@ -1,4 +1,4 @@
-package domain.ladder;
+package domain;
 
 import java.util.ArrayList;
 

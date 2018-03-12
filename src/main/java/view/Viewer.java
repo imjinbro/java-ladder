@@ -1,6 +1,6 @@
 package view;
 
-import domain.ladder.Ladder;
+import domain.Ladder;
 
 public class Viewer {
     public static void viewMessage(String message) {
