@@ -1,15 +1,19 @@
-import io.Input;
-import io.Viewer;
-import ladder.Ladder;
+import view.Input;
+import view.Viewer;
+import domain.ladder.Ladder;
 
-public class LadderConsole {
+public class Main {
+    private static final int MIN_PLAYER_NUM = 2;
+    private static final int MIN_HEIGHT = 2;
+    private static final int MAX_NAME_LENGTH = 5;
+
     public static void main(String[] args) {
-        LadderConsole.start();
+        Main.start();
     }
 
     public static void start() {
         Ladder ladder = new Ladder(getPlayersName(), getMaxHeight());
-        Viewer.viewLadder(ladder);
+        Viewer.viewLadder(ladder, MAX_NAME_LENGTH);
     }
 
     private static String[] getPlayersName() {
@@ -17,7 +21,7 @@ public class LadderConsole {
 
         String[] names = dividePlayersName(Input.getPlayerNames());
         while (isInvalidNames(names)) {
-            Viewer.viewMessage("플레이어 이름을 잘못 입력하였습니다(2명 이상 입력, 1명 당 이름 5자 이하)\n참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
+            Viewer.viewMessage("플레이어 이름을 잘못 입력하였습니다(2명 이상 입력, 1명 당 이름 " + MAX_NAME_LENGTH + "자 이하)\n참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
             names = dividePlayersName(Input.getPlayerNames());
         }
 
@@ -28,9 +32,8 @@ public class LadderConsole {
         return names == null || isInvalidPlayerNum(names.length) || isIncludeInvalidName(names);
     }
 
-    private static boolean isInvalidPlayerNum(int playerNum) {
-        int minPlayerNum = 2;
-        return playerNum < minPlayerNum;
+    static boolean isInvalidPlayerNum(int playerNum) {
+        return playerNum < MIN_PLAYER_NUM;
     }
 
     private static boolean isIncludeInvalidName(String[] names) {
@@ -48,9 +51,8 @@ public class LadderConsole {
         return playerNum == checkCount;
     }
 
-    private static boolean isValidNameLength(String name) {
-        int maxLength = 5;
-        return name.length() <= maxLength;
+    static boolean isValidNameLength(String name) {
+        return name.length() <= MAX_NAME_LENGTH;
     }
 
     private static int getMaxHeight() {
@@ -63,17 +65,17 @@ public class LadderConsole {
         return maxHeight;
     }
 
-    private static boolean isInvalidHeight(int height) {
-        return height < 1;
+    static boolean isInvalidHeight(int height) {
+        return height < MIN_HEIGHT;
     }
 
-    private static String[] dividePlayersName(String playersName) {
+    static String[] dividePlayersName(String playersName) {
         String removedPlayersName = removeEmptySpace(playersName);
         String delimiter = ",";
         return removedPlayersName.split(delimiter);
     }
 
-    private static String removeEmptySpace(String playersName) {
+    static String removeEmptySpace(String playersName) {
         return playersName.replace(" ", "");
     }
 }

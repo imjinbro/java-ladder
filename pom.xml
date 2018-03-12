@@ -8,7 +8,7 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>java-ladder</name>
+	<name>java-domain.ladder</name>
 	<description>사다리 게임</description>
 
 	<properties>

@@ -1,4 +1,4 @@
-package ladder.util;
+package domain.ladder.util;
 
 import java.util.Random;
 
@@ -17,7 +17,9 @@ public class LadderUtils {
         return new Random().nextInt(bound);
     }
 
-    public static int calcLineNum(int playerNum) {
-        return playerNum * 2 - 1;
+    public static int calcPointNumOfLine(int playerNum) {
+        int allPointNum = playerNum * 2;
+        int extraSpaceNum = 1;
+        return allPointNum- extraSpaceNum;
     }
 }
