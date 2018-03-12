@@ -3,7 +3,6 @@ package domain;
 import java.util.Arrays;
 
 public class LadderFormat {
-
     public static String formatName(String name, int maxNameLength) {
         return fillNameToArea(name.toCharArray(), maxNameLength);
     }

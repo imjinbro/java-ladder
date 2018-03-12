@@ -3,7 +3,6 @@ package domain;
 import java.util.ArrayList;
 
 public class LineBuilder {
-
     public static ArrayList<Boolean> build(int pointNum) {
         ArrayList<Boolean> points = new ArrayList<>();
         ArrayList<Integer> drawPositions = getDrawPositions(pointNum);
@@ -37,6 +36,7 @@ public class LineBuilder {
     }
 
     private static boolean isExistAdjoinDrawPos(ArrayList<Integer> drawPositions, int pos) {
-        return drawPositions.contains(pos - 2);
+        int posDiff = 2;
+        return drawPositions.contains(pos - posDiff);
     }
 }

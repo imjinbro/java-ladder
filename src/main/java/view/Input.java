@@ -10,8 +10,9 @@ public class Input {
         try {
             return scanner.nextInt();
         } catch (InputMismatchException e) {
+            int invalidData = -1;
             clearDummyData();
-            return -1;
+            return invalidData;
         }
     }
 
