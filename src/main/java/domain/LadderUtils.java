@@ -20,6 +20,6 @@ public class LadderUtils {
     public static int calcPointNumOfLine(int playerNum) {
         int allPointNum = playerNum * 2;
         int extraSpaceNum = 1;
-        return allPointNum- extraSpaceNum;
+        return allPointNum - extraSpaceNum;
     }
 }

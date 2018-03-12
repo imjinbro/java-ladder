@@ -42,7 +42,6 @@ public class LadderBuilder {
         if (canDraw) {
             return repeatLadderLetter('-', maxNameLength);
         }
-
         return repeatLadderLetter(' ', maxNameLength);
     }
 

@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 
 public class LineBuilder {
-    
+
     public static ArrayList<Boolean> build(int pointNum) {
         ArrayList<Boolean> points = new ArrayList<>();
         ArrayList<Integer> drawPositions = getDrawPositions(pointNum);
