@@ -17,11 +17,12 @@ public class Main {
     }
 
     private static String[] getPlayersName() {
-        Viewer.viewMessage("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
+        String printMessage = "참여할 사람 이름을 입력하세요. (" + MIN_PLAYER_NUM + "명 이상 이름 입력, 이름은 쉼표(,)로 구분, 최대" + MAX_NAME_LENGTH + "자 까지 입력가능)";
+        Viewer.viewMessage(printMessage);
 
         String[] names = dividePlayersName(Input.getPlayerNames());
         while (isInvalidNames(names)) {
-            Viewer.viewMessage("플레이어 이름을 잘못 입력하였습니다(2명 이상 입력, 1명 당 이름 " + MAX_NAME_LENGTH + "자 이하)\n참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
+            Viewer.viewMessage("플레이어 이름을 잘못 입력하였습니다\n" + printMessage);
             names = dividePlayersName(Input.getPlayerNames());
         }
 
