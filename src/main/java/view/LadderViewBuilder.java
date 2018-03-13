@@ -1,8 +1,12 @@
-package domain;
+package view;
+
+import domain.LadderUtils;
+import domain.Line;
+import domain.Names;
 
 import java.util.ArrayList;
 
-public class LadderBuilder {
+public class LadderViewBuilder {
     public static String build(ArrayList<Line> ladder, Names names, int maxNameLength) {
         StringBuilder builder = new StringBuilder();
         builder.append(buildNameTab(names, maxNameLength));
@@ -19,7 +23,7 @@ public class LadderBuilder {
         int playerNum = names.getPlayerNumber();
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < playerNum; i++) {
-            builder.append(LadderFormat.formatName(names.getPlayerName(i), maxNameLength));
+            builder.append(LadderViewFormat.formatName(names.getPlayerName(i), maxNameLength));
         }
         return builder.toString();
     }
@@ -31,7 +35,7 @@ public class LadderBuilder {
             boolean canDraw = line.isDrawPosition(position);
             builder.append(buildLadderLetter(canDraw, position, maxNameLength));
         }
-        return LadderFormat.formatLine(builder.toString(), maxNameLength);
+        return LadderViewFormat.formatLine(builder.toString(), maxNameLength);
     }
 
     static String buildLadderLetter(boolean canDraw, int position, int maxNameLength) {
