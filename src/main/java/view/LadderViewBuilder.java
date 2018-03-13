@@ -1,5 +1,6 @@
 package view;
 
+import domain.Ladder;
 import domain.LadderUtils;
 import domain.Line;
 import domain.Names;
@@ -7,13 +8,13 @@ import domain.Names;
 import java.util.ArrayList;
 
 public class LadderViewBuilder {
-    public static String build(ArrayList<Line> ladder, Names names, int maxNameLength) {
+    public static String build(Ladder ladder, Names names, int maxNameLength) {
         StringBuilder builder = new StringBuilder();
         builder.append(buildNameTab(names, maxNameLength));
         builder.append("\n");
 
-        for (int i = 0; i < ladder.size(); i++) {
-            builder.append(buildLine(ladder.get(i), LadderUtils.calcPointNumOfLine(names.getPlayerNumber()), maxNameLength));
+        for (int i = 0; i < ladder.getHeight(); i++) {
+            builder.append(buildLine(ladder.getLine(i), LadderUtils.calcPointNumOfLine(names.getPlayerNumber()), maxNameLength));
             builder.append("\n");
         }
         return builder.toString();

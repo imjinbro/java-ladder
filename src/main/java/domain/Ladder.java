@@ -19,7 +19,15 @@ public class Ladder {
         }
     }
 
+    public Line getLine(int height) {
+        return ladder.get(height);
+    }
+
+    public int getHeight() {
+        return ladder.size();
+    }
+
     public String buildViewMode(int maxNameLength) {
-        return LadderViewBuilder.build(ladder, names, maxNameLength);
+        return LadderViewBuilder.build(this, names, maxNameLength);
     }
 }
