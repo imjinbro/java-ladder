@@ -12,4 +12,8 @@ public class Viewer {
     public static void viewLadder(Ladder ladder, Names names, Rewards rewards, int maxContentLength) {
         System.out.println(ladder.buildViewMode(names, rewards, maxContentLength));
     }
+
+    public static void viewResult(Ladder ladder, Names names, Rewards rewards) {
+        System.out.println(ladder.match(ladder, names, rewards));
+    }
 }

@@ -12,4 +12,8 @@ public class Line {
     public boolean isDrawPosition(int position) {
         return points.get(position);
     }
+
+    public int getPointNum() {
+        return points.size();
+    }
 }

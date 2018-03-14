@@ -20,6 +20,7 @@ public class Main {
 
         Ladder ladder = new Ladder(playerNum, getMaxHeight());
         Viewer.viewLadder(ladder, playersName, rewards, MAX_NAME_LENGTH);
+        Viewer.viewResult(ladder, playersName, rewards);
     }
 
     private static Names getPlayersName() {
