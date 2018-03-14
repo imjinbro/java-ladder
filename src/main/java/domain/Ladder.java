@@ -8,7 +8,7 @@ public class Ladder {
     private ArrayList<Line> ladder = new ArrayList<>();
 
     public Ladder(int playerNum, int height) {
-        setLadder(height, LadderUtils.calcPointNumOfLine(playerNum));
+        setLadder(LadderUtils.calcPointNumOfLine(playerNum), height);
     }
 
     private void setLadder(int pointNum, int height) {
