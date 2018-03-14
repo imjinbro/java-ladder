@@ -1,4 +1,5 @@
 import domain.Ladder;
+import domain.Names;
 import view.Input;
 import view.Viewer;
 
@@ -12,11 +13,14 @@ public class Main {
     }
 
     public static void start() {
-        Ladder ladder = new Ladder(getPlayersName(), getMaxHeight());
-        Viewer.viewLadder(ladder, MAX_NAME_LENGTH);
+        Names playersName = getPlayersName();
+        int playerNum = playersName.getPlayerNumber();
+
+        Ladder ladder = new Ladder(playerNum, getMaxHeight());
+        Viewer.viewLadder(ladder, playersName, MAX_NAME_LENGTH);
     }
 
-    private static String[] getPlayersName() {
+    private static Names getPlayersName() {
         String printMessage = "참여할 사람 이름을 입력하세요. (" + MIN_PLAYER_NUM + "명 이상 이름 입력, 이름은 쉼표(,)로 구분, 최대 " + MAX_NAME_LENGTH + "자까지 입력가능)";
         Viewer.viewMessage(printMessage);
 
@@ -25,7 +29,7 @@ public class Main {
             Viewer.viewMessage("플레이어 이름을 잘못 입력하였습니다\n" + printMessage);
             names = dividePlayersName(Input.getPlayerNames());
         }
-        return names;
+        return new Names(names);
     }
 
     private static boolean isInvalidNames(String[] names) {
@@ -43,7 +47,6 @@ public class Main {
         while (!isFinishCheck(playerNum, checkCount) && isValidNameLength(names[checkCount])) {
             checkCount++;
         }
-
         return !isFinishCheck(playerNum, checkCount);
     }
 

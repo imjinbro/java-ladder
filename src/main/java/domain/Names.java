@@ -3,7 +3,7 @@ package domain;
 public class Names {
     private String[] names;
 
-    Names(String[] names) {
+    public Names(String[] names) {
         this.names = names;
     }
 

@@ -6,14 +6,12 @@ import java.util.ArrayList;
 
 public class Ladder {
     private ArrayList<Line> ladder = new ArrayList<>();
-    private Names names;
 
-    public Ladder(String[] names, int height) {
-        this.names = new Names(names);
-        setLadder(height, LadderUtils.calcPointNumOfLine(names.length));
+    public Ladder(int playerNum, int height) {
+        setLadder(height, LadderUtils.calcPointNumOfLine(playerNum));
     }
 
-    private void setLadder(int height, int pointNum) {
+    private void setLadder(int pointNum, int height) {
         for (int h = 0; h < height; h++) {
             ladder.add(new Line(LineCreator.create(pointNum)));
         }
@@ -27,7 +25,7 @@ public class Ladder {
         return ladder.size();
     }
 
-    public String buildViewMode(int maxNameLength) {
+    public String buildViewMode(Names names, int maxNameLength) {
         return LadderViewBuilder.build(this, names, maxNameLength);
     }
 }
