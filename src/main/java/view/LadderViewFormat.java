@@ -3,17 +3,17 @@ package view;
 import java.util.Arrays;
 
 public class LadderViewFormat {
-    public static String formatName(String name, int maxNameLength) {
-        return fillNameToArea(name.toCharArray(), maxNameLength);
+    public static String formatTab(String content, int maxContentLength) {
+        return fillContentToArea(content.toCharArray(), maxContentLength);
     }
 
-    private static String fillNameToArea(char[] name, int maxNameLength) {
-        char[] area = new char[maxNameLength + 1];
+    private static String fillContentToArea(char[] content, int maxContentLength) {
+        char[] area = new char[maxContentLength + 1];
         Arrays.fill(area, ' ');
 
-        int fillTargetIdx = name.length - 1;
-        for (int i = maxNameLength; (i >= 0 && fillTargetIdx >= 0); i--) {
-            area[i] = name[fillTargetIdx--];
+        int fillTargetIdx = content.length - 1;
+        for (int i = maxContentLength; (i >= 0 && fillTargetIdx >= 0); i--) {
+            area[i] = content[fillTargetIdx--];
         }
         return String.valueOf(area);
     }

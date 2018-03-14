@@ -1,53 +1,65 @@
 package view;
 
-import domain.Ladder;
-import domain.LadderUtils;
-import domain.Line;
-import domain.Names;
+import domain.*;
 
 import java.util.ArrayList;
 
 public class LadderViewBuilder {
-    public static String build(Ladder ladder, Names names, int maxNameLength) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(buildNameTab(names, maxNameLength));
-        builder.append("\n");
+    public static String build(Ladder ladder, Names names, Rewards rewards, int maxContentLength) {
+        int playerNum = names.getPlayerNumber();
 
+        return buildNameTab(names, playerNum, maxContentLength) +
+                buildLadder(ladder, LadderUtils.calcPointNumOfLine(playerNum), maxContentLength) +
+                buildRewardTab(rewards, playerNum, maxContentLength);
+    }
+
+    private static String buildRewardTab(Rewards rewards, int playerNum, int maxContentLength) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < playerNum; i++) {
+            String formattedReward = LadderViewFormat.formatTab(rewards.getReward(i), maxContentLength);
+            builder.append(formattedReward);
+        }
+        return builder.toString();
+    }
+
+    private static String buildNameTab(Names names, int playerNum, int maxContentLength) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < playerNum; i++) {
+            String formattedName = LadderViewFormat.formatTab(names.getPlayerName(i), maxContentLength);
+            builder.append(formattedName);
+        }
+        builder.append("\n");
+        return builder.toString();
+    }
+
+    private static String buildLadder(Ladder ladder, int pointNum, int maxContentLength) {
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < ladder.getHeight(); i++) {
-            builder.append(buildLine(ladder.getLine(i), LadderUtils.calcPointNumOfLine(names.getPlayerNumber()), maxNameLength));
+            builder.append(buildLine(ladder.getLine(i), pointNum, maxContentLength));
             builder.append("\n");
         }
         return builder.toString();
     }
 
-    private static String buildNameTab(Names names, int maxNameLength) {
-        int playerNum = names.getPlayerNumber();
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < playerNum; i++) {
-            builder.append(LadderViewFormat.formatName(names.getPlayerName(i), maxNameLength));
-        }
-        return builder.toString();
-    }
-
-    private static String buildLine(Line line, int pointNum, int maxNameLength) {
+    private static String buildLine(Line line, int pointNum, int maxContentLength) {
         StringBuilder builder = new StringBuilder();
 
         for (int position = 0; position < pointNum; position++) {
             boolean canDraw = line.isDrawPosition(position);
-            builder.append(buildLadderLetter(canDraw, position, maxNameLength));
+            builder.append(buildLadderLetter(canDraw, position, maxContentLength));
         }
-        return LadderViewFormat.formatLine(builder.toString(), maxNameLength);
+        return LadderViewFormat.formatLine(builder.toString(), maxContentLength);
     }
 
-    static String buildLadderLetter(boolean canDraw, int position, int maxNameLength) {
+    static String buildLadderLetter(boolean canDraw, int position, int maxContentLength) {
         if (isEvenNumPosition(position)) {
             return "|";
         }
 
         if (canDraw) {
-            return repeatLadderLetter('-', maxNameLength);
+            return repeatLadderLetter('-', maxContentLength);
         }
-        return repeatLadderLetter(' ', maxNameLength);
+        return repeatLadderLetter(' ', maxContentLength);
     }
 
     private static boolean isEvenNumPosition(int position) {

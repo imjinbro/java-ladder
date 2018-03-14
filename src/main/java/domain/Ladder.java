@@ -25,7 +25,7 @@ public class Ladder {
         return ladder.size();
     }
 
-    public String buildViewMode(Names names, int maxNameLength) {
-        return LadderViewBuilder.build(this, names, maxNameLength);
+    public String buildViewMode(Names names, Rewards rewards, int maxContentLength) {
+        return LadderViewBuilder.build(this, names, rewards, maxContentLength);
     }
 }
