@@ -1,5 +1,8 @@
 package view;
 
+import domain.Names;
+import domain.Rewards;
+
 import java.util.Scanner;
 
 public class Input {
@@ -12,37 +15,37 @@ public class Input {
         } catch (NumberFormatException e) {
             Viewer.viewMessage("숫자를 입력해주세요.");
             return getHeight(minHeight);
-        } catch (BelowStandardException e) {
-            Viewer.viewMessage(minHeight + "이상 입력해야합니다.");
+        } catch (UpperStandardException e) {
+            Viewer.viewMessage(minHeight + "이하 입력해야합니다.");
             return getHeight(minHeight);
         }
     }
 
-    static int verifyHeight(int minHeight, int height) throws BelowStandardException {
-        if(minHeight > height) {
-            throw new BelowStandardException("");
+    static int verifyHeight(int minHeight, int height) throws UpperStandardException {
+        if (minHeight > height) {
+            throw new UpperStandardException("");
         }
         return height;
     }
 
-    static class BelowStandardException extends Exception{
-        BelowStandardException(String msg){
+    static class UpperStandardException extends Exception {
+        UpperStandardException(String msg) {
             super(msg);
         }
     }
 
-    public static String[] getPlayerNames(int minPlayerNum, int maxNameLength) {
-        String[] names = dividePlayersName(scanner.nextLine());
+    public static Names getPlayerNames(int minPlayerNum, int maxNameLength) {
+        String[] names = divideUserInput(scanner.nextLine());
         while (isInvalidPlayerNum(minPlayerNum, names.length)) {
             printError(minPlayerNum + "명 이상 입력해야합니다.");
-            names = getPlayerNames(minPlayerNum, maxNameLength);
+            return getPlayerNames(minPlayerNum, maxNameLength);
         }
 
         while (isIncludeOverLengthName(maxNameLength, names)) {
             printError(maxNameLength + "자 이상이어야 합니다");
-            names = getPlayerNames(minPlayerNum, maxNameLength);
+            return getPlayerNames(minPlayerNum, maxNameLength);
         }
-        return names;
+        return new Names(names);
     }
 
     private static void printError(String errorMessage) {
@@ -71,7 +74,7 @@ public class Input {
         return name.length() <= maxNameLength;
     }
 
-    static String[] dividePlayersName(String playersName) {
+    static String[] divideUserInput(String playersName) {
         String removedPlayersName = removeEmptySpace(playersName);
         String delimiter = ",";
         return removedPlayersName.split(delimiter);
@@ -80,4 +83,18 @@ public class Input {
     static String removeEmptySpace(String playersName) {
         return playersName.replace(" ", "");
     }
+
+    public static Rewards getRewards(int playerNum) {
+        String[] rewards = divideUserInput(scanner.nextLine());
+        while(isInvalidRewardNum(playerNum, rewards.length)) {
+            printError(playerNum + "개를 입력해야합니다");
+            return getRewards(playerNum);
+        }
+        return new Rewards(rewards);
+    }
+
+    private static boolean isInvalidRewardNum(int playerNum, int rewardNum) {
+        return playerNum != rewardNum;
+    }
+
 }

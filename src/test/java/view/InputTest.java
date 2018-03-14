@@ -24,8 +24,8 @@ public class InputTest {
         assertEquals(false, Input.isValidNameLength(MAX_NAME_LENGTH, "ABCDEF"));
     }
 
-    @Test(expected = Input.BelowStandardException.class)
-    public void 사다리높이설정_2미만_유효하지않은가() throws Input.BelowStandardException {
+    @Test(expected = Input.UpperStandardException.class)
+    public void 사다리높이설정_2미만_유효하지않은가() throws Input.UpperStandardException {
         Input.verifyHeight(Min_HEIGHT, 1);
     }
 
@@ -38,6 +38,6 @@ public class InputTest {
     @Test
     public void 플레이어들의_이름이_입력되었을때_제대로_끊어내는가() {
         String playersName = Input.removeEmptySpace("jinbro, park, colin, abc");
-        assertEquals(new String[]{"jinbro", "park", "colin", "abc"}, Input.dividePlayersName(playersName));
+        assertEquals(new String[]{"jinbro", "park", "colin", "abc"}, Input.divideUserInput(playersName));
     }
 }
