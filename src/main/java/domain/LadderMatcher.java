@@ -40,7 +40,7 @@ public class LadderMatcher {
         return moveRightPosition(line, position, currentPosition);
     }
 
-    private static int moveLeftPosition(Line line, int position) {
+    static int moveLeftPosition(Line line, int position) {
         int currentPosition = position;
         while (canMove(line, currentPosition - 1)) {
             currentPosition = currentPosition - 1;
@@ -48,7 +48,7 @@ public class LadderMatcher {
         return currentPosition;
     }
 
-    private static int moveRightPosition(Line line, int startPosition, int currentPosition) {
+    static int moveRightPosition(Line line, int startPosition, int currentPosition) {
         if (currentPosition != startPosition) {
             return currentPosition;
         }
