@@ -1,7 +1,6 @@
 package view;
 
 import domain.Names;
-import domain.Rewards;
 
 import java.util.Scanner;
 
@@ -34,18 +33,18 @@ public class Input {
         }
     }
 
-    public static Names getPlayerNames(int minPlayerNum, int maxNameLength) {
+    public static String[] getPlayerNames(int minPlayerNum, int maxNameLength) {
         String[] names = divideUserInput(scanner.nextLine());
         while (isInvalidPlayerNum(minPlayerNum, names.length)) {
             printError(minPlayerNum + "명 이상 입력해야합니다.");
-            return getPlayerNames(minPlayerNum, maxNameLength);
+            names = getPlayerNames(minPlayerNum, maxNameLength);
         }
 
         while (isIncludeOverLengthName(maxNameLength, names)) {
-            printError(maxNameLength + "자 이상이어야 합니다");
-            return getPlayerNames(minPlayerNum, maxNameLength);
+            printError(maxNameLength + "자 이하이어야 합니다");
+            names = getPlayerNames(minPlayerNum, maxNameLength);
         }
-        return new Names(names);
+        return names;
     }
 
     private static void printError(String errorMessage) {
@@ -84,17 +83,25 @@ public class Input {
         return playersName.replace(" ", "");
     }
 
-    public static Rewards getRewards(int playerNum) {
+    public static String[] getRewards(int playerNum) {
         String[] rewards = divideUserInput(scanner.nextLine());
-        while(isInvalidRewardNum(playerNum, rewards.length)) {
+        while (isInvalidRewardNum(playerNum, rewards.length)) {
             printError(playerNum + "개를 입력해야합니다");
-            return getRewards(playerNum);
+            rewards = getRewards(playerNum);
         }
-        return new Rewards(rewards);
+        return rewards;
     }
 
     private static boolean isInvalidRewardNum(int playerNum, int rewardNum) {
         return playerNum != rewardNum;
     }
 
+    public static String getResultName(Names names) {
+        String name = scanner.nextLine();
+        while (!name.equals("all") && !names.isExistName(name)) {
+            printError("참여하지않은 플레이어입니다");
+            name = getResultName(names);
+        }
+        return name;
+    }
 }

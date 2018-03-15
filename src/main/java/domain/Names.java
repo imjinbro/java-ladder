@@ -1,17 +1,30 @@
 package domain;
 
+import java.util.ArrayList;
+
 public class Names {
-    private String[] names;
+    private ArrayList<Name> names = new ArrayList<>();
 
     public Names(String[] names) {
-        this.names = names;
+        initNames(names);
+    }
+
+    private void initNames(String[] splitNames) {
+        for (String name : splitNames) {
+            names.add(new Name(name));
+        }
     }
 
     public String getPlayerName(int position) {
-        return names[position];
+        Name searchName = names.get(position);
+        return searchName.getName();
     }
 
     public int getPlayerNumber() {
-        return names.length;
+        return names.size();
+    }
+
+    public boolean isExistName(String name) {
+        return names.contains(new Name(name));
     }
 }

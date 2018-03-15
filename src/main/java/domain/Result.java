@@ -1,20 +1,23 @@
 package domain;
 
 public class Result {
-    private int playerNum;
-    private int resultNum;
+    private Name name;
+    private Reward reward;
 
-    public Result(int playerNum, int resultNum) {
-        this.playerNum = playerNum;
-        this.resultNum = resultNum;
+    Result(Name name, Reward reward) {
+        this.name = name;
+        this.reward = reward;
     }
 
-    //임시
-    public int getPlayerNum() {
-        return playerNum;
+    public String getName() {
+        return name.getName();
     }
 
-    public int getResultNum() {
-        return resultNum;
+    public String getReward() {
+        return reward.getRewardName();
+    }
+
+    public boolean isResultName(Name searchName) {
+        return name.equals(searchName);
     }
 }

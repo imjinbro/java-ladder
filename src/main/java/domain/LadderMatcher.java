@@ -1,66 +1,63 @@
 package domain;
 
-import java.util.ArrayList;
-
 public class LadderMatcher {
-    // TODO : 리턴타입 조금 더 생각해보고 변경하기
-    public static void match(Ladder ladder, Names names, Rewards rewards) {
-        ArrayList<Result> results = getLadderRewardPair(ladder);
 
-    }
-
-    private static ArrayList<Result> getLadderRewardPair(Ladder ladder) {
-        ArrayList<Result> results = new ArrayList<>();
-        int pointNum = ladder.getPointNum();
-        for (int playerNum = 0; playerNum < pointNum; playerNum += 2) {
+    public static Results match(Ladder ladder, Names names, Rewards rewards) {
+        Results results = new Results();
+        System.out.println(rewards.size());
+        for (int i = 0; i < names.getPlayerNumber(); i++) {
             int startHeight = 0;
-            results.add(new Result(playerNum, searchRewardPosition(ladder, startHeight, playerNum)));
+            int startPosition = syncSkipPlayerIdx(i);
+            int rewardPosition = searchRewardPosition(ladder, startHeight, startPosition);
+            results.addResult(names.getPlayerName(i), rewards.getReward(rewardPosition));
         }
         return results;
     }
 
+    private static int syncSkipPlayerIdx(int playerIdx) {
+        if (playerIdx == 0) {
+            return playerIdx;
+        }
+        int spaceIdx = 2;
+        return playerIdx * spaceIdx;
+    }
+
+    private static int syncSkipRewardIdx(int rewardIdx) {
+        int spaceIdx = 2;
+        return rewardIdx / spaceIdx;
+    }
+
     private static int searchRewardPosition(Ladder ladder, int heightIdx, int position) {
         if (isFinishSearch(ladder, heightIdx)) {
-            return position;
+            return syncSkipRewardIdx(position);
         }
-
         Line currentLine = ladder.getLine(heightIdx);
         position = movePosition(currentLine, position);
         return searchRewardPosition(ladder, moveHeight(heightIdx), position);
     }
 
     private static int movePosition(Line line, int position) {
-        int movedPosition = moveLeftPosition(line, position);
-        movedPosition = moveRightPosition(line, position, movedPosition);
-        return movedPosition;
+        int currentPosition = moveLeftPosition(line, position);
+        return moveRightPosition(line, position, currentPosition);
     }
 
     private static int moveLeftPosition(Line line, int position) {
-        int currentPos = position;
-        while (canMove(line, currentPos - 1)) {
-            currentPos = currentPos - 1;
+        int currentPosition = position;
+        while (canMove(line, currentPosition - 1)) {
+            currentPosition = currentPosition - 1;
         }
-        return currentPos;
+        return currentPosition;
     }
 
-    private static int moveRightPosition(Line line, int startingPosition, int movedPosition) {
-        if (isMovedHorizontal(startingPosition, movedPosition)) {
-            return movedPosition;
+    private static int moveRightPosition(Line line, int startPosition, int currentPosition) {
+        if (currentPosition != startPosition) {
+            return currentPosition;
         }
 
-        int currentPos = movedPosition;
-        while (canMove(line, currentPos + 1)) {
-            currentPos = currentPos + 1;
+        while (canMove(line, currentPosition + 1)) {
+            currentPosition = currentPosition + 1;
         }
-        return currentPos;
-    }
-
-    private static boolean isMovedHorizontal(int startingPosition, int movedPosition) {
-        return startingPosition != movedPosition;
-    }
-
-    private static int moveHeight(int heightIdx) {
-        return heightIdx + 1;
+        return currentPosition;
     }
 
     private static boolean canMove(Line line, int nextPosition) {
@@ -69,6 +66,10 @@ public class LadderMatcher {
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
+    }
+
+    private static int moveHeight(int heightIdx) {
+        return heightIdx + 1;
     }
 
     private static boolean isFinishSearch(Ladder ladder, int currentHeightIdx) {

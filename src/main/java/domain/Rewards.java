@@ -1,13 +1,26 @@
 package domain;
 
+import java.util.ArrayList;
+
 public class Rewards {
-    private String[] rewards;
+    private ArrayList<Reward> rewards = new ArrayList<>();
 
     public Rewards(String[] rewards) {
-        this.rewards = rewards;
+        initRewards(rewards);
+    }
+
+    private void initRewards(String[] splitRewards) {
+        for (String reward : splitRewards) {
+            rewards.add(new Reward(reward));
+        }
     }
 
     public String getReward(int position) {
-        return rewards[position];
+        Reward searchReward = rewards.get(position);
+        return searchReward.getRewardName();
+    }
+
+    public int size() {
+        return rewards.size();
     }
 }
