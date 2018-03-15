@@ -9,6 +9,7 @@ public class Main {
     private static final int MIN_PLAYER_NUM = 2;
     private static final int MIN_HEIGHT = 2;
     private static final int MAX_NAME_LENGTH = 5;
+    private static final int EXIT_KEY = -1;
 
     public static void main(String[] args) {
         Main.start();
@@ -19,12 +20,24 @@ public class Main {
         int playerNum = playersName.getPlayerNumber();
         Rewards rewards = getReward(playerNum);
         Ladder ladder = new Ladder(playerNum, getMaxHeight());
-
         Viewer.viewLadder(ladder, playersName, rewards, MAX_NAME_LENGTH);
-
         Results allResult = LadderMatcher.match(ladder, playersName, rewards);
-        Name searchName = getResultName(playersName);
-        Viewer.viewResult(allResult, searchName);
+        showResult(allResult, playersName);
+    }
+
+    private static void showResult(Results allResult, Names playersName) {
+        String searchName = getResultName(playersName);
+        while (!isFinishKey(searchName)) {
+            Name wrapName = new Name(searchName);
+            Viewer.viewResult(allResult, wrapName);
+            searchName = getResultName(playersName);
+        }
+        Viewer.viewMessage("게임 종료");
+    }
+
+    private static boolean isFinishKey(String userInput) {
+        String exitKey = String.valueOf(EXIT_KEY);
+        return exitKey.equals(userInput);
     }
 
     private static Names getPlayersName() {
@@ -44,8 +57,8 @@ public class Main {
         return Input.getHeight(MIN_HEIGHT);
     }
 
-    private static Name getResultName(Names names) {
-        Viewer.viewMessage("결과를 보고 싶은 사람은?");
-        return new Name(Input.getResultName(names));
+    private static String getResultName(Names names) {
+        Viewer.viewMessage("결과를 보고 싶은 사람은? (종료 방법 : " + EXIT_KEY + "입력)");
+        return Input.getResultName(names);
     }
 }
