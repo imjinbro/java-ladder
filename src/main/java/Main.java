@@ -25,6 +25,7 @@ public class Main {
         showResult(allResult, playersName);
     }
 
+    // TODO : 종료되지않는 문제점 해결하기
     private static void showResult(Results allResult, Names playersName) {
         String searchName = getResultName(playersName);
         while (!isFinishKey(searchName)) {

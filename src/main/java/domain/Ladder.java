@@ -23,8 +23,7 @@ public class Ladder {
         return ladder.size();
     }
 
-    public int getPointNum() {
-        Line lastLine = ladder.get(ladder.size() - 1);
-        return lastLine.getPointNum();
+    public boolean isOverHeight(int heightIdx) {
+        return ladder.size() <= heightIdx;
     }
 }

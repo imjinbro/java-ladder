@@ -13,7 +13,11 @@ public class Line {
         return points.get(position);
     }
 
-    public int getPointNum() {
-        return points.size();
+    public boolean canMove(int nextPosition) {
+        try {
+            return isDrawPosition(nextPosition);
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
     }
 }

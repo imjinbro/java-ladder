@@ -6,29 +6,21 @@ public class LadderMatcher {
         Results results = new Results();
         for (int i = 0; i < names.getPlayerNumber(); i++) {
             int startHeight = 0;
-            int startPosition = syncSkipPlayerIdx(i);
+            int startPosition = skipSpaceIdxAtPlayer(i);
             int rewardPosition = searchRewardPosition(ladder, startHeight, startPosition);
             results.addResult(names.getPlayerName(i), rewards.getReward(rewardPosition));
         }
         return results;
     }
 
-    private static int syncSkipPlayerIdx(int playerIdx) {
-        if (playerIdx == 0) {
-            return playerIdx;
-        }
+    private static int skipSpaceIdxAtPlayer(int playerIdx) {
         int spaceIdx = 2;
         return playerIdx * spaceIdx;
     }
 
-    private static int syncSkipRewardIdx(int rewardIdx) {
-        int spaceIdx = 2;
-        return rewardIdx / spaceIdx;
-    }
-
     private static int searchRewardPosition(Ladder ladder, int heightIdx, int position) {
-        if (isFinishSearch(ladder, heightIdx)) {
-            return syncSkipRewardIdx(position);
+        if (ladder.isOverHeight(heightIdx)) {
+            return removeSpaceIdxAtReward(position);
         }
         Line currentLine = ladder.getLine(heightIdx);
         position = movePosition(currentLine, position);
@@ -42,7 +34,7 @@ public class LadderMatcher {
 
     static int moveLeftPosition(Line line, int position) {
         int currentPosition = position;
-        while (canMove(line, currentPosition - 1)) {
+        while (line.canMove(currentPosition - 1)) {
             currentPosition = currentPosition - 1;
         }
         return currentPosition;
@@ -53,25 +45,18 @@ public class LadderMatcher {
             return currentPosition;
         }
 
-        while (canMove(line, currentPosition + 1)) {
+        while (line.canMove(currentPosition + 1)) {
             currentPosition = currentPosition + 1;
         }
         return currentPosition;
-    }
-
-    private static boolean canMove(Line line, int nextPosition) {
-        try {
-            return line.isDrawPosition(nextPosition);
-        } catch (IndexOutOfBoundsException e) {
-            return false;
-        }
     }
 
     private static int moveHeight(int heightIdx) {
         return heightIdx + 1;
     }
 
-    private static boolean isFinishSearch(Ladder ladder, int currentHeightIdx) {
-        return ladder.getHeight() <= currentHeightIdx;
+    private static int removeSpaceIdxAtReward(int rewardIdx) {
+        int spaceIdx = 2;
+        return rewardIdx / spaceIdx;
     }
 }
