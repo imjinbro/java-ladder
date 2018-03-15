@@ -19,14 +19,13 @@ public class Results {
 
     public String getRewardName(int position) {
         Result result = results.get(position);
-        return result.getName();
+        return result.getReward();
     }
 
-    //또다른 Results를 만들어야하나?
     public Result searchResult(Name searchName) {
         Result targetResult = null;
         for (Result result : results) {
-            if(result.isResultName(searchName)) {
+            if (result.isResultName(searchName)) {
                 targetResult = result;
                 break;
             }

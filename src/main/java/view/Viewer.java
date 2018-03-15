@@ -12,12 +12,19 @@ public class Viewer {
         System.out.println(ladderView);
     }
 
-    // TODO : all 이라는 예외 상황도 생각해야함 : Names를 가져와야하나
     public static void viewResult(Results results, Name searchName) {
-        //all 걸러내고
+        System.out.println(buildResultMessage(results, searchName));
+    }
 
+    private static String buildResultMessage(Results results, Name searchName) {
+        if (isAllSearch(searchName)) {
+            return ResultViewBuilder.build(results);
+        }
         Result result = results.searchResult(searchName);
-        String resultView = ResultViewBuilder.build(result);
-        System.out.println(resultView);
+        return ResultViewBuilder.build(result);
+    }
+
+    private static boolean isAllSearch(Name searchName) {
+        return searchName.equals(new Name("all"));
     }
 }

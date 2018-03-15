@@ -4,7 +4,6 @@ public class LadderMatcher {
 
     public static Results match(Ladder ladder, Names names, Rewards rewards) {
         Results results = new Results();
-        System.out.println(rewards.size());
         for (int i = 0; i < names.getPlayerNumber(); i++) {
             int startHeight = 0;
             int startPosition = syncSkipPlayerIdx(i);

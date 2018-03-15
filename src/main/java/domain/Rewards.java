@@ -19,8 +19,4 @@ public class Rewards {
         Reward searchReward = rewards.get(position);
         return searchReward.getRewardName();
     }
-
-    public int size() {
-        return rewards.size();
-    }
 }
