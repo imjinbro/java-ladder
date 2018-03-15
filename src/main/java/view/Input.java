@@ -96,12 +96,12 @@ public class Input {
         return playerNum != rewardNum;
     }
 
-    public static String getResultName(Names names) {
-        String name = scanner.nextLine();
-        while (!name.equals("all") && !names.isExistName(name)) {
+    public static String getResultName(Names names, String exitKey) {
+        String input = scanner.nextLine();
+        while (!input.equals(exitKey) && !input.equals("all") && !names.isExistName(input)) {
             printError("참여하지않은 플레이어입니다");
-            name = getResultName(names);
+            input = getResultName(names, exitKey);
         }
-        return name;
+        return input;
     }
 }

@@ -5,7 +5,7 @@ import domain.*;
 public class ResultViewBuilder {
     public static String build(Results results) {
         StringBuilder builder = new StringBuilder();
-        builder.append("플레이어 사다리 결과\n");
+        builder.append("모든 플레이어 사다리 결과\n");
         for (int i = 0; i < results.getResultSize(); i++) {
             builder.append(results.getName(i) + " : " + results.getRewardName(i) + "\n");
         }

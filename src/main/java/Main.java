@@ -9,7 +9,7 @@ public class Main {
     private static final int MIN_PLAYER_NUM = 2;
     private static final int MIN_HEIGHT = 2;
     private static final int MAX_NAME_LENGTH = 5;
-    private static final int EXIT_KEY = -1;
+    private static final String EXIT_KEY = "-1";
 
     public static void main(String[] args) {
         Main.start();
@@ -25,7 +25,6 @@ public class Main {
         showResult(allResult, playersName);
     }
 
-    // TODO : 종료되지않는 문제점 해결하기
     private static void showResult(Results allResult, Names playersName) {
         String searchName = getResultName(playersName);
         while (!isFinishKey(searchName)) {
@@ -37,8 +36,7 @@ public class Main {
     }
 
     private static boolean isFinishKey(String userInput) {
-        String exitKey = String.valueOf(EXIT_KEY);
-        return exitKey.equals(userInput);
+        return EXIT_KEY.equals(userInput);
     }
 
     private static Names getPlayersName() {
@@ -59,7 +57,7 @@ public class Main {
     }
 
     private static String getResultName(Names names) {
-        Viewer.viewMessage("결과를 보고 싶은 사람은? (종료 방법 : " + EXIT_KEY + "입력)");
-        return Input.getResultName(names);
+        Viewer.viewMessage("결과를 보고 싶은 사람은? (종료 방법 : " + EXIT_KEY + " 입력)");
+        return Input.getResultName(names, EXIT_KEY);
     }
 }

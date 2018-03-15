@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Results {
     private ArrayList<Result> results = new ArrayList<>();
@@ -23,14 +24,10 @@ public class Results {
     }
 
     public Result searchResult(Name searchName) {
-        Result targetResult = null;
-        for (Result result : results) {
-            if (result.isResultName(searchName)) {
-                targetResult = result;
-                break;
-            }
-        }
-        return targetResult;
+        Optional<Result> search = results.stream()
+                                         .filter(result -> result.isResultName(searchName))
+                                         .findAny();
+        return search.get();
     }
 
     public int getResultSize() {
