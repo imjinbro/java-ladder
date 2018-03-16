@@ -10,11 +10,10 @@ public class Ladder {
         if (isInvalidHeight(height)) {
             throw new IllegalArgumentException(MIN_HEIGHT + "이상 높이 설정해야합니다.");
         }
-
         setLadder(LadderUtils.calcPointNumOfLine(playerNum), height);
     }
 
-    private static boolean isInvalidHeight(int height) {
+    static boolean isInvalidHeight(int height) {
         return MIN_HEIGHT > height;
     }
 

@@ -8,11 +8,6 @@ public class InputTest {
     private static final int MIN_PLAYER_NUM = 2;
     private static final int MAX_NAME_LENGTH = 5;
     private static final int Min_HEIGHT = 2;
-    
-    @Test(expected = Input.UpperStandardException.class)
-    public void 사다리높이설정_2미만_유효하지않은가() throws Input.UpperStandardException {
-        Input.verifyHeight(Min_HEIGHT, 1);
-    }
 
     @Test
     public void 플레이어들의_이름에_공백이있을경우_제거되는가() {
