@@ -2,6 +2,8 @@ package domain;
 
 import java.util.ArrayList;
 
+import static domain.LineCreator.createLine;
+
 public class Ladder {
     private static final int MIN_HEIGHT = 2;
     private ArrayList<Line> ladder = new ArrayList<>();
@@ -17,40 +19,20 @@ public class Ladder {
         return MIN_HEIGHT > height;
     }
 
-    private void setLadder(int pointNum, int height) {
-        for (int h = 0; h < height; h++) {
-            ladder.add(new Line(LineCreator.create(pointNum)));
+    private void setLadder(int pointNum, int heightLimit) {
+        for (int heightIdx = 0; heightIdx < heightLimit; heightIdx++) {
+            Line line = new Line(createLine(pointNum));
+            ladder.add(line);
         }
     }
 
-    public Line getLine(int height) {
-        return ladder.get(height);
+    public boolean isMaxHeight(int heightIdx) {
+        int maxHeightIdx = ladder.size() - 1;
+        return maxHeightIdx == heightIdx;
     }
 
-    public int getHeight() {
-        return ladder.size();
-    }
-
-    public int getStartHeight() {
-        return ladder.size() - ladder.size();
-    }
-
-    public boolean isOverHeight(int heightIdx) {
-        return ladder.size() <= heightIdx;
-    }
-
-    public ArrayList<Integer> getPlayerPositions() {
-        Line firstLine = ladder.stream().findFirst().get();
-        return firstLine.getPlayerPositions();
-    }
-
-    public int convertPositionToIdx(int position) {
-        int spaceInterval = 2;
-        return position / spaceInterval;
-    }
-
-    public int removeSpaceIdx(int idx) {
-        int spaceInterval = 2;
-        return idx / spaceInterval;
+    public boolean canMovablePosition(int heightIdx, int position) {
+        Line selectedLine = ladder.get(heightIdx);
+        return selectedLine.isMovablePosition(position);
     }
 }

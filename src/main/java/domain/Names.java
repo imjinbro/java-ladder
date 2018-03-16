@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Names {
     private static final int MIN_PLAYER_NUM = 2;
@@ -28,27 +29,9 @@ public class Names {
         return MIN_PLAYER_NUM > names.length;
     }
 
-
-    // TODO : 리팩토링
     static boolean searchDuplicateName(String[] names) {
-        Arrays.sort(names);
-        int startIdx = 0;
-        for (int i = startIdx; i < names.length; i++) {
-            if (isDiffHeader(names[startIdx], names[startIdx + i])) {
-                startIdx++;
-                continue;
-            }
-
-            if (names[startIdx].equals(names[startIdx + 1])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean isDiffHeader(String targetName, String comparisonName) {
-        int headerIdx = 0;
-        return targetName.charAt(headerIdx) != comparisonName.charAt(headerIdx);
+        HashSet<String> nameBox = new HashSet<>(Arrays.asList(names));
+        return names.length != nameBox.size();
     }
 
     public String getPlayerName(int position) {

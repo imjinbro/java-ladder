@@ -32,18 +32,19 @@ public class LadderViewBuilder {
 
     private static String buildLadder(Ladder ladder, int pointNum, int maxContentLength) {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < ladder.getHeight(); i++) {
-            builder.append(buildLine(ladder.getLine(i), pointNum, maxContentLength));
+        int heightIdx = 0;
+        while (!ladder.isMaxHeight(heightIdx)) {
+            builder.append(buildLine(ladder, heightIdx, pointNum, maxContentLength));
             builder.append("\n");
+            heightIdx++;
         }
         return builder.toString();
     }
 
-    private static String buildLine(Line line, int pointNum, int maxContentLength) {
+    private static String buildLine(Ladder ladder, int heightIdx, int pointNum, int maxContentLength) {
         StringBuilder builder = new StringBuilder();
-
         for (int position = 0; position < pointNum; position++) {
-            boolean canDraw = line.isDrawPosition(position);
+            boolean canDraw = ladder.canMovablePosition(heightIdx, position);
             builder.append(buildLadderLetter(canDraw, position, maxContentLength));
         }
         return LadderViewFormat.formatLine(builder.toString(), maxContentLength);

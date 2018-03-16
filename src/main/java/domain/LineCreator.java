@@ -3,20 +3,61 @@ package domain;
 import java.util.ArrayList;
 
 public class LineCreator {
-    public static ArrayList<Boolean> create(int pointNum) {
-        ArrayList<Boolean> points = new ArrayList<>();
-        ArrayList<Integer> drawPositions = getDrawPositions(pointNum);
+
+    static ArrayList<Point> createLine(int pointNum) {
+        ArrayList<Integer> movablePositions = createMovablePositions(pointNum);
+        ArrayList<Point> points = new ArrayList<>();
         for (int pos = 0; pos < pointNum; pos++) {
-            points.add(isDrawPosition(pos, drawPositions));
+            Direction direction = createDirection(movablePositions, pos);
+            Point point = new Point(pos, direction);
+            points.add(point);
         }
         return points;
     }
 
-    private static boolean isDrawPosition(int position, ArrayList<Integer> drawPositions) {
-        return drawPositions.contains(position);
+    private static Direction createDirection(ArrayList<Integer> movablePositions, int position) {
+        if (!isMovablePosition(movablePositions, position)) {
+            return Direction.valueOf(DirectionType.NOTMOVE);
+        }
+
+        if (position % 2 == 0) {
+            return createDirectionEvenNum(movablePositions, position);
+        }
+        return createDirectionOddNum(movablePositions, position);
     }
 
-    private static ArrayList<Integer> getDrawPositions(int pointNum) {
+    private static Direction createDirectionEvenNum(ArrayList<Integer> movablePositions, int position) {
+        if (isMovablePosition(movablePositions, position - 1)) {
+            return Direction.valueOf(DirectionType.LEFT);
+        }
+
+        if (isMovablePosition(movablePositions, position + 1)) {
+            return Direction.valueOf(DirectionType.RIGHT);
+        }
+        return Direction.valueOf(DirectionType.DOWN);
+    }
+
+
+    private static Direction createDirectionOddNum(ArrayList<Integer> movablePositions, int position) {
+        if (isMovablePosition(movablePositions, position - 1) && isMovablePosition(movablePositions, position + 1)) {
+            return Direction.valueOf(DirectionType.BOTHSIDES);
+        }
+
+        if (isMovablePosition(movablePositions, position - 1)) {
+            return Direction.valueOf(DirectionType.LEFT);
+        }
+        return Direction.valueOf(DirectionType.RIGHT);
+    }
+
+    private static boolean isMovablePosition(ArrayList<Integer> movablePositions, int position) {
+        try {
+            return movablePositions.contains(position);
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+
+    private static ArrayList<Integer> createMovablePositions(int pointNum) {
         ArrayList<Integer> drawPositions = new ArrayList<>();
         for (int pos = 0; pos < pointNum; pos++) {
             addDrawPositions(drawPositions, pos);
