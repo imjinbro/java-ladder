@@ -4,9 +4,9 @@ public class Result {
     private Name name;
     private Reward reward;
 
-    Result(Name name, Reward reward) {
-        this.name = name;
-        this.reward = reward;
+    Result(String name, String reward) {
+        this.name = new Name(name);
+        this.reward = new Reward(reward);
     }
 
     public String getName() {

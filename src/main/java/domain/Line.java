@@ -1,6 +1,8 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Line {
     private ArrayList<Boolean> points;
@@ -19,5 +21,10 @@ public class Line {
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
+    }
+
+    public ArrayList<Integer> getPlayerPositions() {
+        int size = points.size();
+        return IntStream.range(0, size).filter(i -> i % 2 == 0).boxed().collect(Collectors.toCollection(ArrayList::new));
     }
 }

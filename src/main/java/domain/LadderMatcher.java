@@ -1,26 +1,28 @@
 package domain;
 
+import java.util.ArrayList;
+
 public class LadderMatcher {
 
     public static Results match(Ladder ladder, Names names, Rewards rewards) {
         Results results = new Results();
-        for (int i = 0; i < names.getPlayerNumber(); i++) {
-            int startHeight = 0;
-            int startPosition = skipSpaceIdxAtPlayer(i);
-            int rewardPosition = searchRewardPosition(ladder, startHeight, startPosition);
-            results.addResult(names.getPlayerName(i), rewards.getReward(rewardPosition));
+        ArrayList<Integer> playerPositions = ladder.getPlayerPositions();
+        for (Integer position : playerPositions) {
+            int startHeight = ladder.getStartHeight();
+            int rewardPosition = searchRewardPosition(ladder, startHeight, position);
+            int playerIdx = ladder.convertPositionToIdx(position);
+            saveResult(results, names.getPlayerName(playerIdx), rewards.getReward(rewardPosition));
         }
         return results;
     }
 
-    private static int skipSpaceIdxAtPlayer(int playerIdx) {
-        int spaceIdx = 2;
-        return playerIdx * spaceIdx;
+    private static void saveResult(Results results, String name, String reward) {
+        results.addResult(name, reward);
     }
 
     private static int searchRewardPosition(Ladder ladder, int heightIdx, int position) {
         if (ladder.isOverHeight(heightIdx)) {
-            return removeSpaceIdxAtReward(position);
+            return ladder.removeSpaceIdx(position);
         }
         Line currentLine = ladder.getLine(heightIdx);
         position = movePosition(currentLine, position);
@@ -53,10 +55,5 @@ public class LadderMatcher {
 
     private static int moveHeight(int heightIdx) {
         return heightIdx + 1;
-    }
-
-    private static int removeSpaceIdxAtReward(int rewardIdx) {
-        int spaceIdx = 2;
-        return rewardIdx / spaceIdx;
     }
 }

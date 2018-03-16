@@ -20,9 +20,14 @@ public class Main {
         int playerNum = playersName.getPlayerNumber();
         Rewards rewards = getReward(playerNum);
         Ladder ladder = new Ladder(playerNum, getMaxHeight());
-        Viewer.viewLadder(ladder, playersName, rewards, MAX_NAME_LENGTH);
+        showLadder(ladder, playersName, rewards);
+
         Results allResult = LadderMatcher.match(ladder, playersName, rewards);
         showResult(allResult, playersName);
+    }
+
+    private static void showLadder(Ladder ladder, Names playerNames, Rewards rewards) {
+        Viewer.viewLadder(ladder, playerNames, rewards, MAX_NAME_LENGTH);
     }
 
     private static void showResult(Results allResult, Names playersName) {

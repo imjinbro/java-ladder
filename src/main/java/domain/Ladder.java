@@ -23,7 +23,26 @@ public class Ladder {
         return ladder.size();
     }
 
+    public int getStartHeight() {
+        return ladder.size() - ladder.size();
+    }
+
     public boolean isOverHeight(int heightIdx) {
         return ladder.size() <= heightIdx;
+    }
+
+    public ArrayList<Integer> getPlayerPositions() {
+        Line firstLine = ladder.stream().findFirst().get();
+        return firstLine.getPlayerPositions();
+    }
+
+    public int convertPositionToIdx(int position) {
+        int spaceInterval = 2;
+        return position / spaceInterval;
+    }
+
+    public int removeSpaceIdx(int idx) {
+        int spaceInterval = 2;
+        return idx / spaceInterval;
     }
 }
