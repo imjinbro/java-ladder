@@ -3,10 +3,19 @@ package domain;
 import java.util.ArrayList;
 
 public class Ladder {
+    private static final int MIN_HEIGHT = 2;
     private ArrayList<Line> ladder = new ArrayList<>();
 
-    public Ladder(int playerNum, int height) {
+    public Ladder(int playerNum, int height) throws IllegalArgumentException {
+        if (isInvalidHeight(height)) {
+            throw new IllegalArgumentException(MIN_HEIGHT + "이상 높이 설정해야합니다.");
+        }
+
         setLadder(LadderUtils.calcPointNumOfLine(playerNum), height);
+    }
+
+    private static boolean isInvalidHeight(int height) {
+        return MIN_HEIGHT > height;
     }
 
     private void setLadder(int pointNum, int height) {

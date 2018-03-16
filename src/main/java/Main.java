@@ -1,14 +1,8 @@
 import domain.*;
 import view.Input;
-import view.LadderViewBuilder;
 import view.Viewer;
 
-import javax.swing.text.View;
-
 public class Main {
-    private static final int MIN_PLAYER_NUM = 2;
-    private static final int MIN_HEIGHT = 2;
-    private static final int MAX_NAME_LENGTH = 5;
     private static final String EXIT_KEY = "-1";
 
     public static void main(String[] args) {
@@ -19,7 +13,8 @@ public class Main {
         Names playersName = getPlayersName();
         int playerNum = playersName.getPlayerNumber();
         Rewards rewards = getReward(playerNum);
-        Ladder ladder = new Ladder(playerNum, getMaxHeight());
+
+        Ladder ladder = setLadder(playerNum);
         showLadder(ladder, playersName, rewards);
 
         Results allResult = LadderMatcher.match(ladder, playersName, rewards);
@@ -27,7 +22,7 @@ public class Main {
     }
 
     private static void showLadder(Ladder ladder, Names playerNames, Rewards rewards) {
-        Viewer.viewLadder(ladder, playerNames, rewards, MAX_NAME_LENGTH);
+        Viewer.viewLadder(ladder, playerNames, rewards, playerNames.getMaxNameLength());
     }
 
     private static void showResult(Results allResult, Names playersName) {
@@ -45,20 +40,50 @@ public class Main {
     }
 
     private static Names getPlayersName() {
-        Viewer.viewMessage("참여할 사람 이름을 입력하세요. (" + MIN_PLAYER_NUM + "명 이상 이름 입력, 이름은 쉼표(,)로 구분, 최대 " + MAX_NAME_LENGTH + "자까지 입력가능)");
-        String[] names = Input.getPlayerNames(MIN_PLAYER_NUM, MAX_NAME_LENGTH);
-        return new Names(names);
+        String[] names = Input.getPlayerNames("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
+        Names playerNames = null;
+        try {
+            playerNames = new Names(names);
+        } catch (IllegalArgumentException e) {
+            Viewer.viewMessage(e.getMessage());
+            playerNames = getPlayersName();
+        }
+        return playerNames;
     }
 
     private static Rewards getReward(int playerNum) {
-        Viewer.viewMessage("실행 결과를 입력하세요. (결과는 쉼표(,)로 구분, " + playerNum + "개 입력해야함)");
-        String[] rewards = Input.getRewards(playerNum);
-        return new Rewards(rewards);
+        String[] rewards = Input.getRewards("실행 결과를 입력하세요. (결과는 쉼표(,)로 구분)");
+        Rewards playerRewards = null;
+        try {
+            playerRewards = new Rewards(rewards, playerNum);
+        } catch (IllegalArgumentException e) {
+            Viewer.viewMessage(e.getMessage());
+            playerRewards = getReward(playerNum);
+        }
+        return playerRewards;
     }
 
-    private static int getMaxHeight() {
-        Viewer.viewMessage("최대 사다리 높이는 몇 개인가요 (" + MIN_HEIGHT + "이상 입력해주세요)");
-        return Input.getHeight(MIN_HEIGHT);
+    private static Ladder setLadder(int playerNum) {
+        Ladder ladder = null;
+        int height = getHeight();
+        try {
+            ladder = new Ladder(playerNum, height);
+        } catch (IllegalArgumentException e) {
+            Viewer.viewMessage(e.getMessage());
+            ladder = setLadder(playerNum);
+        }
+        return ladder;
+    }
+
+    private static int getHeight() {
+        int height = -1;
+        try {
+            height = Input.getHeight("최대 사다리 높이는 몇 개인가요");
+        } catch (NumberFormatException e) {
+            Viewer.viewMessage(e.getMessage());
+            height = getHeight();
+        }
+        return height;
     }
 
     private static String getResultName(Names names) {

@@ -8,22 +8,7 @@ public class InputTest {
     private static final int MIN_PLAYER_NUM = 2;
     private static final int MAX_NAME_LENGTH = 5;
     private static final int Min_HEIGHT = 2;
-
-    @Test
-    public void 플레이어_3명_올바르지않은가() {
-        assertEquals(false, Input.isInvalidPlayerNum(MIN_PLAYER_NUM, 3));
-    }
-
-    @Test
-    public void 플레이어_마이너스1명_올바르지않은가() {
-        assertEquals(true, Input.isInvalidPlayerNum(MIN_PLAYER_NUM, -1));
-    }
-
-    @Test
-    public void 플레이어_이름5자초과_유효한이름인가() {
-        assertEquals(false, Input.isValidNameLength(MAX_NAME_LENGTH, "ABCDEF"));
-    }
-
+    
     @Test(expected = Input.UpperStandardException.class)
     public void 사다리높이설정_2미만_유효하지않은가() throws Input.UpperStandardException {
         Input.verifyHeight(Min_HEIGHT, 1);

@@ -2,8 +2,6 @@ package view;
 
 import domain.*;
 
-import java.util.ArrayList;
-
 public class LadderViewBuilder {
     public static String build(Ladder ladder, Names names, Rewards rewards, int maxContentLength) {
         int playerNum = names.getPlayerNumber();

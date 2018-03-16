@@ -1,6 +1,7 @@
 package view;
 
-import domain.*;
+import domain.Result;
+import domain.Results;
 
 public class ResultViewBuilder {
     public static String build(Results results) {
