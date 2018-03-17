@@ -22,13 +22,7 @@ public class Input {
     }
 
     static String[] divideUserInput(String playersName) {
-        String removedPlayersName = removeEmptySpace(playersName);
-        String delimiter = ",";
-        return removedPlayersName.split(delimiter);
-    }
-
-    static String removeEmptySpace(String playersName) {
-        return playersName.replace(" ", "");
+        return playersName.split(",\\s*");
     }
 
     public static String[] getRewards(String printMessage) {

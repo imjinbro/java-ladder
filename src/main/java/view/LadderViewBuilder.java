@@ -8,7 +8,7 @@ public class LadderViewBuilder {
         int maxContentLength = names.getMaxNameLength();
 
         return buildNameTab(names, playerNum, maxContentLength) +
-                buildLadder(ladder, LadderUtils.calcPointNumOfLine(playerNum), maxContentLength) +
+                buildLadder(ladder, maxContentLength) +
                 buildRewardTab(rewards, playerNum, maxContentLength);
     }
 
@@ -31,22 +31,24 @@ public class LadderViewBuilder {
         return builder.toString();
     }
 
-    private static String buildLadder(Ladder ladder, int pointNum, int maxContentLength) {
+    private static String buildLadder(Ladder ladder, int maxContentLength) {
         StringBuilder builder = new StringBuilder();
         int heightIdx = 0;
         while (!ladder.isMaxHeight(heightIdx)) {
-            builder.append(buildLine(ladder, heightIdx, pointNum, maxContentLength));
+            builder.append(buildLine(ladder, heightIdx, maxContentLength));
             builder.append("\n");
-            heightIdx++;
+            heightIdx = ladder.moveDown(heightIdx);
         }
         return builder.toString();
     }
 
-    private static String buildLine(Ladder ladder, int heightIdx, int pointNum, int maxContentLength) {
+    private static String buildLine(Ladder ladder, int heightIdx, int maxContentLength) {
         StringBuilder builder = new StringBuilder();
-        for (int position = 0; position < pointNum; position++) {
+        int position = 0;
+        while (!ladder.isLimitPointNum(position)) {
             boolean canDraw = ladder.isMovablePosition(heightIdx, position);
             builder.append(buildLadderLetter(canDraw, position, maxContentLength));
+            position++;
         }
         return LadderViewFormat.formatLine(builder.toString(), maxContentLength);
     }
