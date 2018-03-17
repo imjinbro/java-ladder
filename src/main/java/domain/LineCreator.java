@@ -15,7 +15,7 @@ public class LineCreator {
         return points;
     }
 
-    private static Direction createDirection(ArrayList<Integer> movablePositions, int position) {
+    static Direction createDirection(ArrayList<Integer> movablePositions, int position) {
         if (!isMovablePosition(movablePositions, position)) {
             return Direction.valueOf(DirectionType.NOTMOVE);
         }
@@ -57,7 +57,7 @@ public class LineCreator {
         }
     }
 
-    private static ArrayList<Integer> createMovablePositions(int pointNum) {
+    static ArrayList<Integer> createMovablePositions(int pointNum) {
         ArrayList<Integer> drawPositions = new ArrayList<>();
         for (int pos = 0; pos < pointNum; pos++) {
             addDrawPositions(drawPositions, pos);

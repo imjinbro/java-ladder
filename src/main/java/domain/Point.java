@@ -16,7 +16,7 @@ public class Point {
     public boolean canLeftMove() {
         return direction.canMoveLeft();
     }
-    
+
     public boolean canRightMove() {
         return direction.canMoveRight();
     }
