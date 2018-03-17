@@ -44,7 +44,7 @@ public class LadderViewBuilder {
     private static String buildLine(Ladder ladder, int heightIdx, int pointNum, int maxContentLength) {
         StringBuilder builder = new StringBuilder();
         for (int position = 0; position < pointNum; position++) {
-            boolean canDraw = ladder.canMovablePosition(heightIdx, position);
+            boolean canDraw = ladder.isMovablePosition(heightIdx, position);
             builder.append(buildLadderLetter(canDraw, position, maxContentLength));
         }
         return LadderViewFormat.formatLine(builder.toString(), maxContentLength);

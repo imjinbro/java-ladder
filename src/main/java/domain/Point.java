@@ -13,15 +13,19 @@ public class Point {
         return direction.canMoveLeft() || direction.canMoveDown() || direction.canMoveRight();
     }
 
-    public boolean canMoveLeft() {
+    public boolean canLeftMove() {
         return direction.canMoveLeft();
     }
-
-    public boolean canMoveDown() {
-        return direction.canMoveDown();
+    
+    public boolean canRightMove() {
+        return direction.canMoveRight();
     }
 
-    public boolean canMoveRight() {
-        return direction.canMoveRight();
+    public int moveLeft() {
+        return this.position - 1;
+    }
+
+    public int moveRight() {
+        return this.position + 1;
     }
 }
