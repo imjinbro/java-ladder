@@ -11,10 +11,8 @@ public class Main {
 
     public static void start() {
         Names playersName = getPlayersName();
-        int playerNum = playersName.getPlayerNumber();
-        Rewards rewards = getReward(playerNum);
-
-        Ladder ladder = setLadder(playerNum);
+        Rewards rewards = getReward(playersName.getPlayerNumber());
+        Ladder ladder = setLadder(playersName.getPlayerNumber());
         showLadder(ladder, playersName, rewards);
 
         Results allResult = LadderMatcher.match(ladder, playersName, rewards);
@@ -22,7 +20,7 @@ public class Main {
     }
 
     private static void showLadder(Ladder ladder, Names playerNames, Rewards rewards) {
-        Viewer.viewLadder(ladder, playerNames, rewards, playerNames.getMaxNameLength());
+        Viewer.viewLadder(ladder, playerNames, rewards);
     }
 
     private static void showResult(Results allResult, Names playersName) {

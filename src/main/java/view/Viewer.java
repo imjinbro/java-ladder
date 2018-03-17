@@ -7,8 +7,8 @@ public class Viewer {
         System.out.println(message);
     }
 
-    public static void viewLadder(Ladder ladder, Names names, Rewards rewards, int maxContentLength) {
-        String ladderView = LadderViewBuilder.build(ladder, names, rewards, maxContentLength);
+    public static void viewLadder(Ladder ladder, Names names, Rewards rewards) {
+        String ladderView = LadderViewBuilder.build(ladder, names, rewards);
         System.out.println(ladderView);
     }
 

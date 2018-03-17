@@ -3,8 +3,9 @@ package view;
 import domain.*;
 
 public class LadderViewBuilder {
-    public static String build(Ladder ladder, Names names, Rewards rewards, int maxContentLength) {
+    public static String build(Ladder ladder, Names names, Rewards rewards) {
         int playerNum = names.getPlayerNumber();
+        int maxContentLength = names.getMaxNameLength();
 
         return buildNameTab(names, playerNum, maxContentLength) +
                 buildLadder(ladder, LadderUtils.calcPointNumOfLine(playerNum), maxContentLength) +
